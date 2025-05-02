@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // const Item = require('./path/to/your/item-model'); // adjust the path if needed
-const { appModelsList } = require('./models/utils');
+const { appModelsList, routesList } = require('./models/utils');
 const Item = require('./models/appModels/Item');
 const ProductionSchedule = require('./models/appModels/ProductionSchedule');
 
@@ -240,10 +240,12 @@ const schema = new mongoose.Schema({
 
 async function seedItems() {
   try {
-    const model = 'ProductionSchedule';
-    const Model = mongoose.model('ProductionSchedule');
-    // console.log(appModelsList);
-    await Model.insertMany(productionSchedules);
+    console.log(routesList);
+
+    // const model = 'ProductionSchedule';
+    // const Model = mongoose.model('ProductionSchedule');
+    // // console.log(appModelsList);
+    // await Model.insertMany(productionSchedules);
     // console.log('Dummy data inserted successfully!');
   } catch (error) {
     console.error('Error inserting dummy data', error);

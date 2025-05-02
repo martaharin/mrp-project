@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Model = mongoose.model('Invoice');
+const Model = mongoose.model('MaterialRequirement');
 
 const read = async (req, res) => {
   // Find document by id
@@ -8,7 +8,7 @@ const read = async (req, res) => {
     _id: req.params.id,
     removed: false,
   })
-    .populate('createdBy', 'name')
+    .populate('items'['item'])
     .exec();
   // If no results found, return document not found
   if (!result) {

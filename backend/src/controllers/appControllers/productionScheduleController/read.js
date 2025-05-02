@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Model = mongoose.model('Invoice');
+const Model = mongoose.model('ProductionSchedule');
 
 const read = async (req, res) => {
   // Find document by id

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Model = mongoose.model('Invoice');
+const Model = mongoose.model('MaterialRequirement');
 
 const paginatedList = async (req, res) => {
   const page = req.query.page || 1;
@@ -29,7 +29,8 @@ const paginatedList = async (req, res) => {
     .skip(skip)
     .limit(limit)
     .sort({ [sortBy]: sortValue })
-    .populate('createdBy', 'name')
+    .populate('items'['item'])
+
     .exec();
 
   // Counting the total documents

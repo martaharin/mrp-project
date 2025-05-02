@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Model = mongoose.model('Invoice');
+const Model = mongoose.model('ProductionSchedule');
 
 const custom = require('@/controllers/pdfController');
 

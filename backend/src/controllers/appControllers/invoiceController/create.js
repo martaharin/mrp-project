@@ -46,6 +46,7 @@ const create = async (req, res) => {
 
   body['paymentStatus'] = paymentStatus;
   body['createdBy'] = req.admin._id;
+  console.log(body);
 
   // Creating a new document in the collection
   const result = await new Model(body).save();

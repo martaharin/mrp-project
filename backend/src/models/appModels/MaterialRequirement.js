@@ -9,23 +9,22 @@ const invoiceSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  bom: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'BillOfMaterial',
-    required: true,
-    autopopulate: true,
-  },
-  machine: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Machine',
-    required: true,
-    autopopulate: true,
-  },
 
-  qty: {
-    type: Number,
-    default: 0,
-  },
+  items: [
+    {
+      item: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Item',
+        required: true,
+        autopopulate: true,
+      },
+      quantity: {
+        type: Number,
+        default: 1,
+        required: true,
+      },
+    },
+  ],
 
   status: {
     type: String,

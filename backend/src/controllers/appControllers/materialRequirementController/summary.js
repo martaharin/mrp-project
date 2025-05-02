@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 
-const Model = mongoose.model('Invoice');
+const Model = mongoose.model('MaterialRequirement');
 
 const { loadSettings } = require('@/middlewares/settings');
 

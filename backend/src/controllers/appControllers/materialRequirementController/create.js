@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Model = mongoose.model('Invoice');
+const Model = mongoose.model('MaterialRequirement');
 
 const { calculate } = require('@/helpers');
 const { increaseBySettingKey } = require('@/middlewares/settings');
@@ -9,43 +9,50 @@ const schema = require('./schemaValidate');
 const create = async (req, res) => {
   let body = req.body;
 
-  const { error, value } = schema.validate(body);
-  if (error) {
-    const { details } = error;
-    return res.status(400).json({
-      success: false,
-      result: null,
-      message: details[0]?.message,
-    });
-  }
+  // const { error, value } = schema.validate(body);
+  // if (error) {
+  //   const { details } = error;
+  //   return res.status(400).json({
+  //     success: false,
+  //     result: null,
+  //     message: details[0]?.message,
+  //   });
+  // }
 
-  const { items = [], taxRate = 0, discount = 0 } = value;
+  // const { items = [], taxRate = 0, discount = 0 } = value;
 
-  // default
-  let subTotal = 0;
-  let taxTotal = 0;
-  let total = 0;
+  // // default
+  // let subTotal = 0;
+  // let taxTotal = 0;
+  // let total = 0;
 
-  //Calculate the items array with subTotal, total, taxTotal
-  items.map((item) => {
-    let total = calculate.multiply(item['quantity'], item['price']);
-    //sub total
-    subTotal = calculate.add(subTotal, total);
-    //item total
-    item['total'] = total;
-  });
-  taxTotal = calculate.multiply(subTotal, taxRate / 100);
-  total = calculate.add(subTotal, taxTotal);
+  // //Calculate the items array with subTotal, total, taxTotal
+  // items.map((item) => {
+  //   let total = calculate.multiply(item['quantity'], item['price']);
+  //   //sub total
+  //   subTotal = calculate.add(subTotal, total);
+  //   //item total
+  //   item['total'] = total;
+  // });
+  // taxTotal = calculate.multiply(subTotal, taxRate / 100);
+  // total = calculate.add(subTotal, taxTotal);
 
-  body['subTotal'] = subTotal;
-  body['taxTotal'] = taxTotal;
-  body['total'] = total;
-  body['items'] = items;
+  // body['subTotal'] = subTotal;
+  // body['taxTotal'] = taxTotal;
+  // body['total'] = total;
+  // body['items'] = items;
 
-  let paymentStatus = calculate.sub(total, discount) === 0 ? 'paid' : 'unpaid';
+  // let paymentStatus = calculate.sub(total, discount) === 0 ? 'paid' : 'unpaid';
 
-  body['paymentStatus'] = paymentStatus;
-  body['createdBy'] = req.admin._id;
+  // body['paymentStatus'] = paymentStatus;
+  // body['createdBy'] = req.admin._id;
+  // const body = {
+  //   bom: '680e229552b4935757de2e03',
+  //   machine: '680e22356a596f802cee62a4',
+  //   qty: 20,
+  //   status: 'draft',
+  //   requestedDate: '2026-04-29T12:06:08.864Z',
+  // };
 
   // Creating a new document in the collection
   const result = await new Model(body).save();
@@ -67,7 +74,7 @@ const create = async (req, res) => {
   return res.status(200).json({
     success: true,
     result: updateResult,
-    message: 'Invoice created successfully',
+    message: 'Material Requirement created successfully',
   });
 };
 

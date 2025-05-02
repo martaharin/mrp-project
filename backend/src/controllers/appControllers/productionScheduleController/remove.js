@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Model = mongoose.model('Invoice');
+const Model = mongoose.model('ProductionSchedule');
 const ModelPayment = mongoose.model('Payment');
 
 const remove = async (req, res) => {
@@ -20,7 +20,7 @@ const remove = async (req, res) => {
     return res.status(404).json({
       success: false,
       result: null,
-      message: 'Invoice not found',
+      message: 'ProductionSchedule not found',
     });
   }
   const paymentsInvoices = await ModelPayment.updateMany(
@@ -30,7 +30,7 @@ const remove = async (req, res) => {
   return res.status(200).json({
     success: true,
     result: deletedInvoice,
-    message: 'Invoice deleted successfully',
+    message: 'ProductionSchedule deleted successfully',
   });
 };
 
