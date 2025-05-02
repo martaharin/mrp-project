@@ -5,6 +5,19 @@ const router = express.Router();
 const appControllers = require('@/controllers/appControllers');
 const { routesList } = require('@/models/utils');
 
+const itemController = require('@/controllers/itemController');
+// GET semua item
+router.get('/items', itemController.read);
+// GET item by id
+router.get('/items/:id', itemController.read);
+// POST: buat item baru
+router.post('/items', itemController.create);
+// PUT: update item
+router.put('/items/:id', itemController.update);
+// DELETE: hapus item
+router.delete('/items/:id', itemController.delete);
+
+
 const routerApp = (entity, controller) => {
   router.route(`/${entity}/create`).post(catchErrors(controller['create']));
   router.route(`/${entity}/read/:id`).get(catchErrors(controller['read']));
