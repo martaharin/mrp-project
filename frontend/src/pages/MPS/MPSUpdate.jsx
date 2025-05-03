@@ -2,12 +2,12 @@ import useLanguage from '@/locale/useLanguage';
 import UpdateMPSModule from '@/modules/MpsModule/UpdateMPSModule';
 
 export default function MPSUpdate() {
-  const entity = 'mps';
+  const entity = 'productionSchedule';
   const translate = useLanguage();
 
   const Labels = {
-    PANEL_TITLE: translate('mps'),
-    ENTITY_NAME: translate('mps'),
+    PANEL_TITLE: translate('productionSchedule'),
+    ENTITY_NAME: translate('productionSchedule'),
   };
 
   const configPage = {

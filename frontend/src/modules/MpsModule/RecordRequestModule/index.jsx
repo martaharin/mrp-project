@@ -11,7 +11,7 @@ export default function RecordRequestModule({ config }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const entity = 'mps/shortage'; // asumsi endpoint REST API
+  const entity = 'productionSchedule/shortage'; // asumsi endpoint REST API
 
   const loadData = async () => {
     setLoading(true);

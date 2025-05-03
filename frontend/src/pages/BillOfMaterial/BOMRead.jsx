@@ -1,9 +1,9 @@
 import useLanguage from '@/locale/useLanguage';
-import UpdateBOMModule from '@/modules/BOMModule/UpdateBOMModule';
+import ReadBOMModule from '@/modules/BOMModule/ReadBOMModule';
 
-export default function BOMUpdate() {
+export default function BOMRead() {
   const translate = useLanguage();
-  const entity = 'bom';
+  const entity = 'billofmaterial';
 
   const Labels = {
     PANEL_TITLE: translate('bom'),
@@ -15,5 +15,5 @@ export default function BOMUpdate() {
     ...Labels,
   };
 
-  return <UpdateBOMModule config={config} />;
+  return <ReadBOMModule config={config} />;
 }

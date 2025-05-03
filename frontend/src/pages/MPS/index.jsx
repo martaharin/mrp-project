@@ -7,7 +7,7 @@ import MPSDataTableModule from '@/modules/MpsModule/MPSDataTableModule';
 export default function MPS() {
   const translate = useLanguage();
   const { dateFormat } = useDate();
-  const entity = 'mps';
+  const entity = 'productionSchedule';
 
   const dataTableColumns = [
     {
@@ -40,10 +40,10 @@ export default function MPS() {
   ];
 
   const Labels = {
-    PANEL_TITLE: translate('mps'),
+    PANEL_TITLE: translate('productionSchedule'),
     DATATABLE_TITLE: translate('MPS_list'),
     ADD_NEW_ENTITY: translate('add_new_mps'),
-    ENTITY_NAME: translate('mps'),
+    ENTITY_NAME: translate('productionSchedule'),
     RECORD_ENTITY: translate('request_shortage'),
   };
 
@@ -55,7 +55,7 @@ export default function MPS() {
   const config = {
     ...configPage,
     dataTableColumns,
-    searchConfig: null, // bisa ditambahkan nanti jika perlu
+    searchConfig: {entity:"productionschedule"}, // bisa ditambahkan nanti jika perlu
     deleteModalLabels: ['productName', 'startDate'],
   };
 

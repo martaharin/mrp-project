@@ -1,13 +1,12 @@
 import useLanguage from '@/locale/useLanguage';
-import BOMDataTableModule from '@/modules/BOMModule/BOMDataTableModule';
+import CreateBOMModule from '@/modules/BOMModule/CreateBOMModule';
 
-export default function BOM() {
+export default function BOMCreate() {
   const translate = useLanguage();
-  const entity = 'bom';
+  const entity = 'billofmaterial';
 
   const Labels = {
     PANEL_TITLE: translate('bom'),
-    DATATABLE_TITLE: translate('bom_list'),
     ADD_NEW_ENTITY: translate('add_new_bom'),
     ENTITY_NAME: translate('bom'),
   };
@@ -15,8 +14,7 @@ export default function BOM() {
   const config = {
     entity,
     ...Labels,
-    deleteModalLabels: ['product.name'],
   };
 
-  return <BOMDataTableModule config={config} />;
+  return <CreateBOMModule config={config} />;
 }

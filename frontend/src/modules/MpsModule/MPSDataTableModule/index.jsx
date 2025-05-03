@@ -5,7 +5,7 @@ import useLanguage from '@/locale/useLanguage';
 export default function MPSDataTableModule({ config }) {
   const translate = useLanguage();
 
-  const entity = 'mps';
+  const entity = 'productionSchedule';
 
   const columns = [
     {

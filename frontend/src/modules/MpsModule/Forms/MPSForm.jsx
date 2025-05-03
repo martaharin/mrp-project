@@ -8,11 +8,14 @@ import {
   Divider,
   DatePicker,
   Typography,
+  message,
+  Input,
 } from 'antd';
 import dayjs from 'dayjs';
 import SelectAsync from '@/components/SelectAsync';
 import useLanguage from '@/locale/useLanguage';
 import { WarningOutlined } from '@ant-design/icons';
+import AutoCompleteAsync from '@/components/AutoCompleteAsync';
 
 const { Title, Text } = Typography;
 const MACHINE_CAPACITY_PER_DAY = 500;
@@ -24,20 +27,7 @@ export default function MPSForm({ current = null }) {
   const [form] = Form.useForm();
   const translate = useLanguage();
 
-  const onProductSelect = async (productId) => {
-    const response = await fetch(`/api/bom/${productId}`);
-    const bom = await response.json();
 
-    const processedMaterials = bom.materials.map((m) => ({
-      ...m,
-      baseQty: m.requiredQty,
-      requiredQty: m.requiredQty * qty,
-      shortage: Math.max(m.requiredQty * qty - m.availableQty, 0),
-    }));
-
-    setMaterialList(processedMaterials);
-    setMaterialWarning(processedMaterials.some((m) => m.shortage > 0));
-  };
 
   const calculateStartDate = (newQty, newEndDate) => {
     if (!newQty || !newEndDate) return;
@@ -50,7 +40,6 @@ export default function MPSForm({ current = null }) {
   const handleQtyChange = (value) => {
     setQty(value);
 
-    // update material list
     const updatedMaterials = materialList.map((m) => {
       const newRequired = m.baseQty * value;
       return {
@@ -59,9 +48,6 @@ export default function MPSForm({ current = null }) {
         shortage: Math.max(newRequired - m.availableQty, 0),
       };
     });
-
-    setMaterialList(updatedMaterials);
-    setMaterialWarning(updatedMaterials.some((m) => m.shortage > 0));
 
     const endDate = form.getFieldValue('endDate');
     calculateStartDate(value, endDate);
@@ -77,20 +63,58 @@ export default function MPSForm({ current = null }) {
       <Row gutter={16}>
         <Col span={8}>
           <Form.Item
-            name="product"
+            name="bom"
             label={translate('Product')}
             rules={[{ required: true }]}
           >
-            <SelectAsync
-              entity="product"
+            {/* <SelectAsync
+              entity="item"
               displayLabels={['name']}
               searchFields="name"
               onChange={onProductSelect}
               placeholder="Select Product"
-            />
+            /> */}
+              <AutoCompleteAsync
+                          entity={'item'}
+                          displayLabels={['name']}
+                          searchFields={'name'}
+                          redirectLabel={'Add New Client'}
+                          withRedirect
+                          // urlToRedirect={'/customer'}
+                        />
           </Form.Item>
         </Col>
 
+        <Col span={4}>
+          <Form.Item
+            name="name"
+            label={translate('Quantity')}
+            rules={[{ required: true }]}
+            initialValue={qty}
+          >
+            <Input
+            value={"MPS25/05/001"}
+              // min={1}
+              // style={{ width: '100%' }}
+              // onChange={handleQtyChange}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={4}>
+          <Form.Item
+            name="machine"
+            label={translate('Quantity')}
+            rules={[{ required: true }]}
+            initialValue={qty}
+          >
+            <Input
+            value={"680e22356a596f802cee62a4"}
+              // min={1}
+              // style={{ width: '100%' }}
+              // onChange={handleQtyChange}
+            />
+          </Form.Item>
+        </Col>
         <Col span={4}>
           <Form.Item
             name="qty"

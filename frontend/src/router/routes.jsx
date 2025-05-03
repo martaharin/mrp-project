@@ -28,12 +28,12 @@ const Taxes = lazy(() => import('@/pages/Taxes'));
 const Profile = lazy(() => import('@/pages/Profile'));
 const About = lazy(() => import('@/pages/About'));
 
-// ✅ Tambahan: Inventory, BOM, MPS
+// ✅ Tambahan: Inventory, BillOfMaterial, MPS
 const Inventory = lazy(() => import('@/pages/Inventory'));
-const BOM = lazy(() => import('@/pages/BOM'));
-const BOMCreate = lazy(() => import('@/pages/BOM/BOMCreate'));
-const BOMRead = lazy(() => import('@/pages/BOM/BOMRead'));
-const BOMUpdate = lazy(() => import('@/pages/BOM/BOMUpdate'));
+const BillOfMaterial = lazy(() => import('@/pages/BillOfMaterial'));
+const BOMCreate = lazy(() => import('@/pages/BillOfMaterial/BOMCreate'));
+const BOMRead = lazy(() => import('@/pages/BillOfMaterial/BOMRead'));
+const BOMUpdate = lazy(() => import('@/pages/BillOfMaterial/BOMUpdate'));
 
 const MPS = lazy(() => import('@/pages/MPS'));
 const MPSCreate = lazy(() => import('@/pages/MPS/MPSCreate'));
@@ -93,17 +93,17 @@ let routes = {
     // ✅ Inventory
     { path: '/inventory', element: <Inventory /> },
 
-    // ✅ BOM
-    { path: '/bom', element: <BOM /> },
+    // ✅ BillOfMaterial
+    { path: '/bom', element: <BillOfMaterial /> },
     { path: '/bom/create', element: <BOMCreate /> },
     { path: '/bom/read/:id', element: <BOMRead /> },
     { path: '/bom/update/:id', element: <BOMUpdate /> },
 
     // ✅ MPS
-    { path: '/mps', element: <MPS /> },
-    { path: '/mps/create', element: <MPSCreate /> },
-    { path: '/mps/read/:id', element: <MPSRead /> },
-    { path: '/mps/update/:id', element: <MPSUpdate /> },
+    { path: '/productionSchedule', element: <MPS /> },
+    { path: '/productionSchedule/create', element: <MPSCreate /> },
+    { path: '/productionSchedule/read/:id', element: <MPSRead /> },
+    { path: '/productionSchedule/update/:id', element: <MPSUpdate /> },
 
     { path: '*', element: <NotFound /> },
   ],

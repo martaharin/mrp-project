@@ -9,7 +9,7 @@ import useLanguage from '@/locale/useLanguage';
 
 const SelectAsync = ({
   entity,
-  displayLabels = ['name'],
+  displayLabels = ['product'],
   outputValue = '_id',
   redirectLabel = '',
   withRedirect = false,
@@ -21,20 +21,21 @@ const SelectAsync = ({
   const translate = useLanguage();
   const [selectOptions, setOptions] = useState([]);
   const [currentValue, setCurrentValue] = useState(undefined);
-
   const navigate = useNavigate();
 
-  const asyncList = () => {
-    return request.list({ entity });
-  };
+  const asyncList = () => request.list({ entity });
   const { result, isLoading: fetchIsLoading, isSuccess } = useFetch(asyncList);
+
   useEffect(() => {
-    isSuccess && setOptions(result);
-  }, [isSuccess]);
+    if (isSuccess && Array.isArray(result)) {
+      setOptions(result);
+    }
+  }, [isSuccess, result]);
 
   const labels = (optionField) => {
-    return displayLabels.map((x) => optionField[x]).join(' ');
+    return displayLabels.map((x) => optionField?.[x] ?? '').join(' ');
   };
+
   useEffect(() => {
     if (value !== undefined) {
       const val = value?.[outputValue] ?? value;
@@ -54,22 +55,15 @@ const SelectAsync = ({
   };
 
   const optionsList = () => {
-    const list = [];
+    if (!Array.isArray(selectOptions)) return [];
 
-    // if (selectOptions.length === 0 && withRedirect) {
-    //   const value = 'redirectURL';
-    //   const label = `+ ${translate(redirectLabel)}`;
-    //   list.push({ value, label });
-    // }
-    selectOptions.map((optionField) => {
+    return selectOptions.map((optionField) => {
       const value = optionField[outputValue] ?? optionField;
       const label = labels(optionField);
-      const currentColor = optionField[outputValue]?.color ?? optionField?.color;
+      const currentColor = optionField?.color;
       const labelColor = color.find((x) => x.color === currentColor);
-      list.push({ value, label, color: labelColor?.color });
+      return { value, label, color: labelColor?.color || 'blue' };
     });
-
-    return list;
   };
 
   return (
@@ -80,17 +74,17 @@ const SelectAsync = ({
       onChange={handleSelectChange}
       placeholder={placeholder}
     >
-      {optionsList()?.map((option) => {
-        return (
-          <Select.Option key={`${uniqueId()}`} value={option.value}>
-            <Tag bordered={false} color={option.color}>
-              {option.label}
-            </Tag>
-          </Select.Option>
-        );
-      })}
+      {optionsList().map((option) => (
+        <Select.Option key={uniqueId()} value={option.value}>
+          <Tag bordered={false} color={option.color}>
+            {option.label}
+          </Tag>
+        </Select.Option>
+      ))}
       {withRedirect && (
-        <Select.Option value={'redirectURL'}>{`+ ` + translate(redirectLabel)}</Select.Option>
+        <Select.Option value={'redirectURL'}>
+          {`+ ` + translate(redirectLabel)}
+        </Select.Option>
       )}
     </Select>
   );

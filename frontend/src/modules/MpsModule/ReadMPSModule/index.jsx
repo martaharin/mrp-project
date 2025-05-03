@@ -5,7 +5,7 @@ import useLanguage from '@/locale/useLanguage';
 export default function ReadMPSModule({ config }) {
   const translate = useLanguage();
 
-  const entity = 'mps';
+  const entity = 'productionSchedule';
 
   const fields = [
     {
@@ -37,7 +37,7 @@ export default function ReadMPSModule({ config }) {
   const subTables = [
     {
       title: translate('Material Requirement'),
-      dataIndex: 'bomItems', // asumsi dari backend: array of material in BOM
+      dataIndex: 'bomItems', // asumsi dari backend: array of material in BillOfMaterial
       columns: [
         {
           title: translate('Material'),
