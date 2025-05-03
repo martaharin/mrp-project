@@ -1,0 +1,76 @@
+[
+  {
+    "_id": "680e229552b4935757de2e03",
+    "removed": false,
+    "enabled": true,
+    "name": "Beng-Beng Bar BillOfMaterial",
+    "items": [
+      {
+        "item": "680e1a1c3a690ed85d9ebf90",
+        "quantity": 8,
+        "_id": "680e229552b4935757de2e04"
+      },
+      {
+        "item": "680e1a1c3a690ed85d9ebf91",
+        "quantity": 2,
+        "_id": "680e229552b4935757de2e05"
+      },
+      {
+        "item": "680e1a1c3a690ed85d9ebf92",
+        "quantity": 3,
+        "_id": "680e229552b4935757de2e06"
+      },
+      {
+        "item": "680e1a1c3a690ed85d9ebf93",
+        "quantity": 6,
+        "_id": "680e229552b4935757de2e07"
+      },
+      {
+        "item": "680e1a1c3a690ed85d9ebf94",
+        "quantity": 1,
+        "_id": "680e229552b4935757de2e08"
+      }
+    ],
+    "createdBy": "6807d813e7030f47ebcb3057",
+    "created": "2025-04-27T12:27:01.108Z",
+    "updated": "2025-04-27T12:27:01.108Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e229552b4935757de2e09",
+    "removed": false,
+    "enabled": true,
+    "name": "Energen Sachet BillOfMaterial",
+    "items": [
+      {
+        "item": "680e1a1c3a690ed85d9ebf93",
+        "quantity": 12,
+        "_id": "680e229552b4935757de2e0a"
+      },
+      {
+        "item": "680e1a1c3a690ed85d9ebf96",
+        "quantity": 5,
+        "_id": "680e229552b4935757de2e0b"
+      },
+      {
+        "item": "680e1a1c3a690ed85d9ebf97",
+        "quantity": 6,
+        "_id": "680e229552b4935757de2e0c"
+      },
+      {
+        "item": "680e1a1c3a690ed85d9ebf98",
+        "quantity": 4,
+        "_id": "680e229552b4935757de2e0d"
+      },
+      {
+        "item": "680e1a1c3a690ed85d9ebf99",
+        "quantity": 2,
+        "_id": "680e229552b4935757de2e0e"
+      }
+    ],
+    "createdBy": "6807d813e7030f47ebcb3057",
+    "created": "2025-04-27T12:27:01.108Z",
+    "updated": "2025-04-27T12:27:01.108Z",
+    "__v": 0
+  }
+]

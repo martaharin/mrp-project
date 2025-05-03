@@ -26,6 +26,7 @@ import {
   FilterOutlined,
   WalletOutlined,
   ReconciliationOutlined,
+  AreaChartOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -58,6 +59,11 @@ function Sidebar({ collapsible, isMobile = false }) {
       key: 'customer',
       icon: <CustomerServiceOutlined />,
       label: <Link to={'/customer'}>{translate('customers')}</Link>,
+    },
+    {
+      key: 'forecast',
+      icon: <AreaChartOutlined />,
+      label: <Link to={'/forecast'}>{translate('forecast')}</Link>,
     },
 
     {

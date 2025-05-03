@@ -444,6 +444,7 @@ const lang = {
   expenses: 'Expenses',
   currencies: 'Currencies',
   payments_mode: 'Payments Mode',
+  forecast: 'Forecast',
   account_owner: 'Account Owner',
   create_only: 'Create Only',
   enter_code: 'Enter Code',

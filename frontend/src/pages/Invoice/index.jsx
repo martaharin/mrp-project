@@ -9,7 +9,7 @@ import InvoiceDataTableModule from '@/modules/InvoiceModule/InvoiceDataTableModu
 export default function Invoice() {
   const translate = useLanguage();
   const { dateFormat } = useDate();
-  const entity = 'invoice';
+  const entity = 'productionschedule';
   const { moneyFormatter } = useMoney();
 
   const searchConfig = {
@@ -94,6 +94,8 @@ export default function Invoice() {
     entity,
     ...Labels,
   };
+  console.log(configPage);
+
   const config = {
     ...configPage,
     dataTableColumns,
