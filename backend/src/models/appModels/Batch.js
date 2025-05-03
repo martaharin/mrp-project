@@ -27,6 +27,10 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  expired: { 
+    type: Date,
+    required: true,
+  },
   updated: {
     type: Date,
     default: Date.now,

@@ -3,14 +3,24 @@ const Batch = mongoose.model('Batch');
 
 const createBatch = async (req, res) => {
   try {
-    const { name, quantity, item, createdBy } = req.body;
+    const { name, quantity, item, createdBy, expired } = req.body;
 
     // Validasi input
-    if (!name || !quantity || !item || !createdBy) {
+    if (!name || !quantity || !item || !createdBy || !expired) {
       return res.status(400).json({
         success: false,
         result: null,
-        message: 'Missing required fields (name, quantity, item, createdBy)',
+        message: 'Missing required fields (name, quantity, item, createdBy, expired)',
+      });
+    }
+
+    // Cek apakah nama batch sudah ada (dan belum dihapus)
+    const existing = await Batch.findOne({ name: name, removed: false });
+    if (existing) {
+      return res.status(409).json({
+        success: false,
+        result: null,
+        message: 'Batch name already exists',
       });
     }
 
@@ -20,6 +30,7 @@ const createBatch = async (req, res) => {
       quantity,
       item,
       createdBy,
+      expired,
     });
 
     // Simpan batch ke database
