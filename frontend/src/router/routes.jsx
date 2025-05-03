@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-
 import { Navigate } from 'react-router-dom';
 
 const Logout = lazy(() => import('@/pages/Logout.jsx'));
@@ -9,7 +8,6 @@ const Dashboard = lazy(() => import('@/pages/Dashboard'));
 const Customer = lazy(() => import('@/pages/Customer'));
 const Invoice = lazy(() => import('@/pages/Invoice'));
 const InvoiceCreate = lazy(() => import('@/pages/Invoice/InvoiceCreate'));
-
 const InvoiceRead = lazy(() => import('@/pages/Invoice/InvoiceRead'));
 const InvoiceUpdate = lazy(() => import('@/pages/Invoice/InvoiceUpdate'));
 const InvoiceRecordPayment = lazy(() => import('@/pages/Invoice/InvoiceRecordPayment'));
@@ -26,8 +24,14 @@ const PaymentMode = lazy(() => import('@/pages/PaymentMode'));
 const Taxes = lazy(() => import('@/pages/Taxes'));
 
 const Profile = lazy(() => import('@/pages/Profile'));
-
 const About = lazy(() => import('@/pages/About'));
+
+const Machine = lazy(() => import('@/pages/Machine'));
+const Item = lazy(() => import('@/pages/Item'));
+const MaterialRequirement = lazy(() => import('@/pages/Material Requirement'));
+const MaterialRequirementCreate = lazy(() => import('@/pages/Material Requirement/MaterialRequirementCreate'));
+const MaterialRequirementRead = lazy(() => import('@/pages/Material Requirement/MaterialRequirementRead'));
+const MaterialRequirementUpdate = lazy(() => import('@/pages/Material Requirement/MaterialRequirementUpdate'));
 
 let routes = {
   expense: [],
@@ -49,10 +53,9 @@ let routes = {
       element: <Dashboard />,
     },
     {
-      path: '/customer',
-      element: <Customer />,
+      path: '/item',
+      element: <Item />,
     },
-
     {
       path: '/invoice',
       element: <Invoice />,
@@ -90,7 +93,7 @@ let routes = {
       element: <QuoteUpdate />,
     },
     {
-      path: '/payment',
+      path: '/payments',
       element: <Payment />,
     },
     {
@@ -101,7 +104,6 @@ let routes = {
       path: '/payment/update/:id',
       element: <PaymentUpdate />,
     },
-
     {
       path: '/settings',
       element: <Settings />,
@@ -118,15 +120,37 @@ let routes = {
       path: '/taxes',
       element: <Taxes />,
     },
-
     {
       path: '/profile',
       element: <Profile />,
+    },
+
+    // ✅ Route untuk Material Requirement
+    {
+      path: '/material-requirement',
+      element: <MaterialRequirement />,
+    },
+    {
+      path: '/material-requirement/create',
+      element: <MaterialRequirementCreate />,
+    },
+    {
+      path: '/material-requirement/read/:id',
+      element: <MaterialRequirementRead />,
+    },
+    {
+      path: '/material-requirement/update/:id',
+      element: <MaterialRequirementUpdate />,
+    },
+    {
+      path: '/machine',
+      element: <Machine />,
     },
     {
       path: '*',
       element: <NotFound />,
     },
+    
   ],
 };
 
