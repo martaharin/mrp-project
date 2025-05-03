@@ -266,6 +266,8 @@ const request = {
         notifyOnSuccess: false,
         notifyOnFailed: false,
       });
+      console.log(entity + '/summary' + query);
+      console.log(response);
 
       return response.data;
     } catch (error) {

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // const Item = require('./path/to/your/item-model'); // adjust the path if needed
-const { appModelsList, routesList } = require('./models/utils');
+const { appModelsList, routesList, entityList } = require('./models/utils');
 const Item = require('./models/appModels/Item');
 const ProductionSchedule = require('./models/appModels/ProductionSchedule');
 
@@ -240,7 +240,7 @@ const schema = new mongoose.Schema({
 
 async function seedItems() {
   try {
-    console.log(routesList);
+    console.log(entityList);
 
     // const model = 'ProductionSchedule';
     // const Model = mongoose.model('ProductionSchedule');

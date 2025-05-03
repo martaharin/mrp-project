@@ -29,7 +29,7 @@ const paginatedList = async (req, res) => {
     .skip(skip)
     .limit(limit)
     .sort({ [sortBy]: sortValue })
-    .populate('createdBy', 'name')
+    // .populate('createdBy', 'name')
     .exec();
 
   // Counting the total documents

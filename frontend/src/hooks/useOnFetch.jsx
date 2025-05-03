@@ -9,6 +9,8 @@ export default function useOnFetch() {
     setIsLoading(true);
 
     const data = await callback;
+    console.log(data);
+
     setResult(data.result);
     if (data.success === true) {
       setIsSuccess(true);
