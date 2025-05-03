@@ -124,15 +124,59 @@ const create = async (req, res) => {
 
   // const currentInvoice = await Item.find({ removed: false });
   // // Creating a new document in the collection
-  const result = await new Model(body).save();
-  // const fileId = 'invoice-' + result._id + '.pdf';
-  const updateResult = await Model.findOneAndUpdate(
-    { _id: result._id },
-    { pdf: fileId },
-    {
-      new: true,
+  const bom = await BillOfMaterial.findById('680e229552b4935757de2e09');
+  if (!bom) throw new Error('BOM not found');
+
+  const results = [];
+
+  for (const bomItem of bom.items) {
+    const itemId = bomItem.item._id;
+    const requiredQty = bomItem.quantity;
+
+    const batches = await Batch.find({
+      item: itemId,
+      removed: false,
+      enabled: true,
+      quantity: { $gt: 0 },
+    }).sort({ expired: 1 }); // FEFO: earliest expiry first
+
+    let remainingQty = requiredQty;
+    const usedBatches = [];
+
+    for (const batch of batches) {
+      if (remainingQty <= 0) break;
+
+      const usedQty = Math.min(batch.quantity, remainingQty);
+      usedBatches.push({
+        batchId: batch._id,
+        usedQty,
+        expired: batch.expired,
+      });
+
+      remainingQty -= usedQty;
     }
-  ).exec();
+
+    results.push({
+      itemId,
+      itemName: bomItem.item.name,
+      requiredQty,
+      isEnough: remainingQty <= 0,
+      usedBatches,
+      shortage: remainingQty > 0 ? remainingQty : 0,
+    });
+  }
+
+  //  return results;
+
+  // const result = await new Model(body).save();
+  // // const fileId = 'invoice-' + result._id + '.pdf';
+  // const updateResult = await Model.findOneAndUpdate(
+  //   { _id: result._id },
+  //   { pdf: fileId },
+  //   {
+  //     new: true,
+  //   }
+  // ).exec();
   // // Returning successfull response
 
   // increaseBySettingKey({
@@ -143,7 +187,7 @@ const create = async (req, res) => {
   return res.status(200).json({
     success: true,
     // res: enrichedItems,
-    result: updateResult,
+    result: results,
     message: 'ProductionSchedule created successfully',
   });
 };

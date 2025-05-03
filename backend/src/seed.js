@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { appModelsList, routesList, entityList } = require('./models/utils');
 const Item = require('./models/appModels/Item');
 const ProductionSchedule = require('./models/appModels/ProductionSchedule');
+const { quantity } = require('./locale/translation/en_us');
 
 // Connect to MongoDB
 
@@ -130,6 +131,70 @@ const dummyData = {
       updated: new Date(),
     },
   ],
+
+  item: [
+    {
+      enabled: true,
+      name: 'Sugar',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Glucose',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Vegetable Oil',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Wheat Flour',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Cocoa Powder',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Wheat Flour',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Milk Powder',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Non-Dairy Creamer',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Malt Extract',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Egg Powder',
+      type: 'raw material',
+    },
+    {
+      enabled: true,
+      name: 'Beng-Beng Bar',
+      type: 'finish good',
+    },
+    {
+      enabled: true,
+      name: 'Energen Sachet',
+      type: 'finish good',
+    },
+  ],
+
   // Add more model data here as needed
 };
 
@@ -161,24 +226,24 @@ function getRandomQty() {
   return Math.floor(Math.random() * (500 - 200 + 1)) + 200; // Quantity between 200 and 500
 }
 
-for (let i = 0; i < 200; i++) {
-  const requestedDate = getRandomDate(2025); // Random date in 2025
-  const bom = bomIds[Math.floor(Math.random() * bomIds.length)];
-  const machine = machineIds[Math.floor(Math.random() * machineIds.length)];
-  const qty = getRandomQty();
-  const status = getRandomStatus();
+// for (let i = 0; i < 200; i++) {
+//   const requestedDate = getRandomDate(2025); // Random date in 2025
+//   const bom = bomIds[Math.floor(Math.random() * bomIds.length)];
+//   const machine = machineIds[Math.floor(Math.random() * machineIds.length)];
+//   const qty = getRandomQty();
+//   const status = getRandomStatus();
 
-  productionSchedules.push({
-    removed: false,
-    requestedDate,
-    bom,
-    machine,
-    qty,
-    status,
-    created: new Date(),
-    updated: new Date(),
-  });
-}
+//   productionSchedules.push({
+//     removed: false,
+//     requestedDate,
+//     bom,
+//     machine,
+//     qty,
+//     status,
+//     created: new Date(),
+//     updated: new Date(),
+//   });
+// }
 
 // Insert data
 // mongoose
@@ -243,9 +308,27 @@ async function seedItems() {
     console.log(entityList);
 
     // const model = 'ProductionSchedule';
-    // const Model = mongoose.model('ProductionSchedule');
+    const Model = mongoose.model('ProductionSchedule');
     // // console.log(appModelsList);
-    // await Model.insertMany(productionSchedules);
+    // await Model.insertMany(dummyData.item);
+    await Model.updateMany(
+      {}, // Match all documents
+      { $rename: { date: 'startDate' } }
+    );
+    // await Model.updateMany({ endDate: { $exists: true } }, [
+    //   {
+    //     $set: {
+    //       date: {
+    //         $dateSubtract: {
+    //           startDate: '$endDate',
+    //           unit: 'day',
+    //           amount: 10,
+    //         },
+    //       },
+    //     },
+    //   },
+    // ]);
+
     // console.log('Dummy data inserted successfully!');
   } catch (error) {
     console.error('Error inserting dummy data', error);

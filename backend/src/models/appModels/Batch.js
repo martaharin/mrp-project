@@ -22,7 +22,10 @@ const schema = new mongoose.Schema({
     ref: 'Item',
     autopopulate: true,
   },
-  createdBy: { type: mongoose.Schema.ObjectId, ref: 'Admin' },
+  expired: {
+    type: Date,
+    required: true,
+  },
   created: {
     type: Date,
     default: Date.now,
