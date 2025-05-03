@@ -13,10 +13,6 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  quantity: {
-    type: Number,
-    required: true,
-  },
   type: {
     type: String,
     enum: ['raw material', 'finish good'],

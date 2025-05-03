@@ -4,20 +4,19 @@ const Item = mongoose.model('Item'); // Import the Item model
 // The create function that will handle the logic of creating an item
 const createItem = async (req, res) => {
   try {
-    const { name, quantity, type } = req.body; // Extract necessary fields from the request
+    const {name, type } = req.body; // Extract necessary fields from the request
 
     // Validation
-    if (!name || !quantity || !type) {
+    if (!name || !type) {
       return res.status(400).json({
         success: false,
-        message: 'Name, quantity, and type are required fields.',
+        message: 'Name and type are required fields.',
       });
     }
 
     // Create a new Item
     const newItem = new Item({
       name,
-      quantity,
       type,
     });
 
