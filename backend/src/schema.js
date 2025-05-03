@@ -35,6 +35,11 @@ const itemDetailSchema = new Schema({
   quantity: { type: Number, required: true },
 });
 
+// Batch Schema
+const batchSchema = new Schema ({
+  expired: { type: Date, required: true },  
+})
+
 const bomSchema = new Schema({
   removed: { type: Boolean, default: false },
   enabled: { type: Boolean, default: true },
