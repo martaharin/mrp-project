@@ -6,7 +6,7 @@ const updateBillOfMaterial = async (req, res) => {
     const { id } = req.params;
     const { name, items, enabled } = req.body;
 
-    // Validasi jika ID BOM tidak ditemukan
+    // Validasi jika ID BillOfMaterial tidak ditemukan
     const bom = await BillOfMaterial.findOne({ _id: id, removed: false });
     if (!bom) {
       return res.status(404).json({

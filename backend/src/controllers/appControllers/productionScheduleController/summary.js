@@ -131,8 +131,8 @@ const summary = async (req, res) => {
   //   {
   //     $group: {
   //       _id: '$bom', // Group by the `bom` ObjectId
-  //       totalQty: { $sum: '$qty' }, // Sum the `qty` for each BOM
-  //       count: { $sum: 1 }, // Optional: count how many invoices per BOM
+  //       totalQty: { $sum: '$qty' }, // Sum the `qty` for each BillOfMaterial
+  //       count: { $sum: 1 }, // Optional: count how many invoices per BillOfMaterial
   //     },
   //   },
   //   {
@@ -149,7 +149,7 @@ const summary = async (req, res) => {
   //   {
   //     $project: {
   //       _id: 0,
-  //       bom: '$bomDetails', // Include BOM details
+  //       bom: '$bomDetails', // Include BillOfMaterial details
   //       totalQty: 1,
   //       count: 1,
   //     },

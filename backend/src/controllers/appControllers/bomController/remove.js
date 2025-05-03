@@ -5,7 +5,7 @@ const removeBillOfMaterial = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Validasi apakah BOM dengan ID tersebut ada
+    // Validasi apakah BillOfMaterial dengan ID tersebut ada
     const bom = await BillOfMaterial.findOne({ _id: id, removed: false });
     if (!bom) {
       return res.status(404).json({

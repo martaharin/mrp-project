@@ -13,14 +13,14 @@ const createBillOfMaterial = async (req, res) => {
       });
     }
 
-    // Create a new BOM entry
+    // Create a new BillOfMaterial entry
     const newBOM = new BillOfMaterial({
       name,
       items,
       createdBy,
     });
 
-    // Save the new BOM entry
+    // Save the new BillOfMaterial entry
     await newBOM.save();
 
     return res.status(201).json({

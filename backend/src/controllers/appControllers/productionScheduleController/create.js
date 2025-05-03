@@ -63,7 +63,7 @@ const create = async (req, res) => {
   //   requestedDate: '2026-04-29T12:06:08.864Z',
   // };
 
-  // // 1. Get BOM data
+  // // 1. Get BillOfMaterial data
   // const bom = await BillOfMaterial.findById(body.bom).lean();
   // const itemIds = bom.items.map((i) => i.item);
 
@@ -104,7 +104,7 @@ const create = async (req, res) => {
 
   // const itemQtyMap = Object.fromEntries(batchData.map((b) => [b._id.toString(), b.totalQty]));
 
-  // // 3. Enrich BOM items with requiredQty, availableQty, and isSufficient
+  // // 3. Enrich BillOfMaterial items with requiredQty, availableQty, and isSufficient
   // const enrichedItems = bom.items.map((i) => {
   //   const itemIdStr = i.item.toString();
 
@@ -125,7 +125,7 @@ const create = async (req, res) => {
   // const currentInvoice = await Item.find({ removed: false });
   // // Creating a new document in the collection
   const bom = await BillOfMaterial.findById('680e229552b4935757de2e09');
-  if (!bom) throw new Error('BOM not found');
+  if (!bom) throw new Error('BillOfMaterial not found');
 
   const results = [];
 

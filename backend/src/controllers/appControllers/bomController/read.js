@@ -5,7 +5,7 @@ const readBillOfMaterial = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Find BOM by id or get all BOMs
+    // Find BillOfMaterial by id or get all BOMs
     let query = {};
     if (id) {
       query = { _id: id, removed: false, enabled: true };
@@ -28,7 +28,7 @@ const readBillOfMaterial = async (req, res) => {
     return res.status(200).json({
       success: true,
       result: bom,
-      message: id ? 'Successfully fetched BOM' : 'Successfully fetched all BOMs',
+      message: id ? 'Successfully fetched BillOfMaterial' : 'Successfully fetched all BOMs',
     });
   } catch (error) {
     console.error('Error reading Bill of Material:', error);
