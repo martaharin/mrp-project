@@ -5,8 +5,8 @@ import { Button, Drawer, Layout, Menu } from 'antd';
 import { useAppContext } from '@/context/appContext';
 
 import useLanguage from '@/locale/useLanguage';
-import logoIcon from '@/style/images/logo-icon.svg';
-import logoText from '@/style/images/logo-text.svg';
+import logoIcon from '@/style/images/logo-production.png';
+import logoText from '@/style/images/icon.text.png';
 
 import useResponsive from '@/hooks/useResponsive';
 
@@ -16,6 +16,9 @@ import {
   DeploymentUnitOutlined,
   ScheduleOutlined,
   DatabaseOutlined,
+  ToolOutlined,
+  AppstoreOutlined,
+  BarsOutlined,
   MenuOutlined,
 } from '@ant-design/icons';
 
@@ -45,11 +48,6 @@ function Sidebar({ collapsible, isMobile = false }) {
       label: <Link to="/">{translate('dashboard')}</Link>,
     },
     {
-      key: 'customer',
-      icon: <CustomerServiceOutlined />,
-      label: <Link to="/customer">{translate('customers')}</Link>,
-    },
-    {
       key: 'billofmaterial',
       icon: <DeploymentUnitOutlined />,
       label: <Link to="/billofmaterial">Bill of Material</Link>,
@@ -57,12 +55,27 @@ function Sidebar({ collapsible, isMobile = false }) {
     {
       key: 'mps',
       icon: <ScheduleOutlined />,
-      label: <Link to="/mps">MPS</Link>,
+      label: <Link to="/mps">Production Schedulle</Link>,
     },
     {
       key: 'inventory',
       icon: <DatabaseOutlined />,
       label: <Link to="/inventory">Inventory</Link>,
+    },
+    {
+      key: 'machine',
+      icon: <ToolOutlined />,
+      label: <Link to="/machine">Machine</Link>,
+    },
+    {
+      key: 'item',
+      icon: <AppstoreOutlined />,
+      label: <Link to="/item">Item</Link>,
+    },
+    {
+      key: 'materialrequirement',
+      icon: <BarsOutlined />,
+      label: <Link to="/materialrequirement">Material Requirement</Link>,
     },
   ];
 
@@ -120,7 +133,11 @@ function Sidebar({ collapsible, isMobile = false }) {
           <img
             src={logoText}
             alt="Logo Text"
-            style={{ marginTop: '3px', marginLeft: '10px', height: '38px' }}
+            style={{
+              marginTop: '3px',
+              marginLeft: '10px',
+              height: '38px',
+            }}
           />
         )}
       </div>
