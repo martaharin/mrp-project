@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import { Tag } from 'antd';
 import useLanguage from '@/locale/useLanguage';
 import { tagColor } from '@/utils/statusTagColor';
 
@@ -74,10 +73,6 @@ export default function Invoice() {
     {
       title: translate('Status'),
       dataIndex: 'status',
-    },
-    {
-      title: translate('Payment'),
-      dataIndex: 'paymentStatus',
     },
   ];
 

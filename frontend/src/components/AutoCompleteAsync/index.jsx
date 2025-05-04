@@ -21,7 +21,7 @@ export default function AutoCompleteAsync({
 }) {
   const translate = useLanguage();
 
-  const addNewValue = { value: 'redirectURL', label: `+ ${translate(redirectLabel)}` };
+  const addNewValue = { value: 'redirectURL', label: + ${translate(redirectLabel)} };
 
   const [selectOptions, setOptions] = useState([]);
   const [currentValue, setCurrentValue] = useState(undefined);
