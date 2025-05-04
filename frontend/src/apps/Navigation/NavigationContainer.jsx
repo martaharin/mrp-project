@@ -11,29 +11,18 @@ import logoText from '@/style/images/logo-text.svg';
 import useResponsive from '@/hooks/useResponsive';
 
 import {
-  SettingOutlined,
-  CustomerServiceOutlined,
-  ContainerOutlined,
-  FileSyncOutlined,
   DashboardOutlined,
-  TagOutlined,
-  TagsOutlined,
-  UserOutlined,
-  CreditCardOutlined,
+  CustomerServiceOutlined,
+  DeploymentUnitOutlined,
+  ScheduleOutlined,
+  DatabaseOutlined,
   MenuOutlined,
-  FileOutlined,
-  ShopOutlined,
-  FilterOutlined,
-  WalletOutlined,
-  ReconciliationOutlined,
-  AreaChartOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
 export default function Navigation() {
   const { isMobile } = useResponsive();
-
   return isMobile ? <MobileSidebar /> : <Sidebar collapsible={false} />;
 }
 
@@ -53,54 +42,27 @@ function Sidebar({ collapsible, isMobile = false }) {
     {
       key: 'dashboard',
       icon: <DashboardOutlined />,
-      label: <Link to={'/'}>{translate('dashboard')}</Link>,
+      label: <Link to="/">{translate('dashboard')}</Link>,
     },
     {
       key: 'customer',
       icon: <CustomerServiceOutlined />,
-      label: <Link to={'/customer'}>{translate('customers')}</Link>,
+      label: <Link to="/customer">{translate('customers')}</Link>,
     },
     {
-      key: 'forecast',
-      icon: <AreaChartOutlined />,
-      label: <Link to={'/forecast'}>{translate('forecast')}</Link>,
-    },
-
-    {
-      key: 'invoice',
-      icon: <ContainerOutlined />,
-      label: <Link to={'/invoice'}>{translate('invoices')}</Link>,
+      key: 'billofmaterial',
+      icon: <DeploymentUnitOutlined />,
+      label: <Link to="/billofmaterial">Bill of Material</Link>,
     },
     {
-      key: 'quote',
-      icon: <FileSyncOutlined />,
-      label: <Link to={'/quote'}>{translate('quote')}</Link>,
+      key: 'mps',
+      icon: <ScheduleOutlined />,
+      label: <Link to="/mps">MPS</Link>,
     },
     {
-      key: 'payment',
-      icon: <CreditCardOutlined />,
-      label: <Link to={'/payment'}>{translate('payments')}</Link>,
-    },
-
-    {
-      key: 'paymentMode',
-      label: <Link to={'/payment/mode'}>{translate('payments_mode')}</Link>,
-      icon: <WalletOutlined />,
-    },
-    {
-      key: 'taxes',
-      label: <Link to={'/taxes'}>{translate('taxes')}</Link>,
-      icon: <ShopOutlined />,
-    },
-    {
-      key: 'generalSettings',
-      label: <Link to={'/settings'}>{translate('settings')}</Link>,
-      icon: <SettingOutlined />,
-    },
-    {
-      key: 'about',
-      label: <Link to={'/about'}>{translate('about')}</Link>,
-      icon: <ReconciliationOutlined />,
+      key: 'inventory',
+      icon: <DatabaseOutlined />,
+      label: <Link to="/inventory">Inventory</Link>,
     },
   ];
 
@@ -124,6 +86,7 @@ function Sidebar({ collapsible, isMobile = false }) {
     }, 200);
     return () => clearTimeout(timer);
   }, [isNavMenuClose]);
+
   const onCollapse = () => {
     navMenu.collapse();
   };
@@ -138,47 +101,35 @@ function Sidebar({ collapsible, isMobile = false }) {
       style={{
         overflow: 'auto',
         height: '100vh',
-
         position: isMobile ? 'absolute' : 'relative',
         bottom: '20px',
-        ...(!isMobile && {
-          // border: 'none',
-          ['left']: '20px',
+        ...( !isMobile && {
+          left: '20px',
           top: '20px',
-          // borderRadius: '8px',
         }),
       }}
-      theme={'light'}
+      theme="light"
     >
       <div
         className="logo"
         onClick={() => navigate('/')}
-        style={{
-          cursor: 'pointer',
-        }}
+        style={{ cursor: 'pointer' }}
       >
         <img src={logoIcon} alt="Logo" style={{ marginLeft: '-5px', height: '40px' }} />
-
         {!showLogoApp && (
           <img
             src={logoText}
-            alt="Logo"
-            style={{
-              marginTop: '3px',
-              marginLeft: '10px',
-              height: '38px',
-            }}
+            alt="Logo Text"
+            style={{ marginTop: '3px', marginLeft: '10px', height: '38px' }}
           />
         )}
       </div>
       <Menu
         items={items}
         mode="inline"
-        theme={'light'}
+        theme="light"
         selectedKeys={[currentPath]}
-        style={{
-          width: 256,
-        }}
+        style={{ width: 256 }}
       />
     </Sider>
   );
@@ -186,12 +137,8 @@ function Sidebar({ collapsible, isMobile = false }) {
 
 function MobileSidebar() {
   const [visible, setVisible] = useState(false);
-  const showDrawer = () => {
-    setVisible(true);
-  };
-  const onClose = () => {
-    setVisible(false);
-  };
+  const showDrawer = () => setVisible(true);
+  const onClose = () => setVisible(false);
 
   return (
     <>
@@ -200,14 +147,13 @@ function MobileSidebar() {
         size="large"
         onClick={showDrawer}
         className="mobile-sidebar-btn"
-        style={{ ['marginLeft']: 25 }}
+        style={{ marginLeft: 25 }}
       >
         <MenuOutlined style={{ fontSize: 18 }} />
       </Button>
       <Drawer
         width={250}
-        // style={{ backgroundColor: 'rgba(255, 255, 255, 1)' }}
-        placement={'left'}
+        placement="left"
         closable={false}
         onClose={onClose}
         open={visible}
