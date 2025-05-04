@@ -5,12 +5,14 @@ import useLanguage from '@/locale/useLanguage';
 
 export default function InventoryPage() {
   const translate = useLanguage();
-  const entity = 'inventory';
+  const entity = 'batch'; // ✅ ganti ini
+
   const searchConfig = {
-    displayLabels: ['batchName'],
-    searchFields: 'batchName',
+    displayLabels: ['name'], // ✅ sesuaikan dengan field backend (`name` bukan `batchName`)
+    searchFields: 'name',
   };
-  const deleteModalLabels = ['batchName', 'qty'];
+
+  const deleteModalLabels = ['name', 'quantity']; // ✅ sesuaikan juga
 
   const Labels = {
     PANEL_TITLE: translate('Inventory'),

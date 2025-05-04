@@ -23,18 +23,14 @@ const PaymentRead = lazy(() => import('@/pages/Payment/PaymentRead'));
 const PaymentUpdate = lazy(() => import('@/pages/Payment/PaymentUpdate'));
 
 const Settings = lazy(() => import('@/pages/Settings/Settings'));
-const PaymentMode = lazy(() => import('@/pages/PaymentMode'));
+const PaymentMode = lazy(() => import('@/modules/MpsModule/PaymentMode'));
 const Taxes = lazy(() => import('@/pages/Taxes'));
 const Profile = lazy(() => import('@/pages/Profile'));
 const About = lazy(() => import('@/pages/About'));
 
-// ✅ Tambahan: Inventory, BillOfMaterial, MPS
+// ✅ Inventory, BillOfMaterial, MPS
 const Inventory = lazy(() => import('@/pages/Inventory'));
-const BillOfMaterial = lazy(() => import('@/pages/BillOfMaterial'));
-const BOMCreate = lazy(() => import('@/pages/BillOfMaterial/BOMCreate'));
-const BOMRead = lazy(() => import('@/pages/BillOfMaterial/BOMRead'));
-const BOMUpdate = lazy(() => import('@/pages/BillOfMaterial/BOMUpdate'));
-
+const BillOfMaterial = lazy(() => import('@/pages/BillOfMaterial')); // halaman utama BOM
 const MPS = lazy(() => import('@/pages/MPS'));
 const MPSCreate = lazy(() => import('@/pages/MPS/MPSCreate'));
 const MPSRead = lazy(() => import('@/pages/MPS/MPSRead'));
@@ -43,30 +39,12 @@ const MPSUpdate = lazy(() => import('@/pages/MPS/MPSUpdate'));
 let routes = {
   expense: [],
   default: [
-    {
-      path: '/login',
-      element: <Navigate to="/" />,
-    },
-    {
-      path: '/logout',
-      element: <Logout />,
-    },
-    {
-      path: '/about',
-      element: <About />,
-    },
-    {
-      path: '/',
-      element: <Dashboard />,
-    },
-    {
-      path: '/customer',
-      element: <Customer />,
-    },
-    {
-      path: '/forecast',
-      element: <Forecast />,
-    },
+    { path: '/login', element: <Navigate to="/" /> },
+    { path: '/logout', element: <Logout /> },
+    { path: '/about', element: <About /> },
+    { path: '/', element: <Dashboard /> },
+    { path: '/customer', element: <Customer /> },
+    { path: '/forecast', element: <Forecast /> },
 
     { path: '/invoice', element: <Invoice /> },
     { path: '/invoice/create', element: <InvoiceCreate /> },
@@ -93,11 +71,8 @@ let routes = {
     // ✅ Inventory
     { path: '/inventory', element: <Inventory /> },
 
-    // ✅ BillOfMaterial
-    { path: '/bom', element: <BillOfMaterial /> },
-    { path: '/bom/create', element: <BOMCreate /> },
-    { path: '/bom/read/:id', element: <BOMRead /> },
-    { path: '/bom/update/:id', element: <BOMUpdate /> },
+    // ✅ BillOfMaterial (tampilan BOM tabel)
+    { path: '/billofmaterial', element: <BillOfMaterial /> },
 
     // ✅ MPS
     { path: '/productionSchedule', element: <MPS /> },
