@@ -59,6 +59,8 @@ const request = {
     try {
       includeToken();
       const response = await axios.get(entity + '/read/' + id);
+      console.log(entity + '/read/' + id);
+
       successHandler(response, {
         notifyOnSuccess: false,
         notifyOnFailed: true,
@@ -307,6 +309,8 @@ const request = {
         notifyOnSuccess: false,
         notifyOnFailed: false,
       });
+      console.log(entity + '/summary' + query);
+      console.log(response);
 
       return response.data;
     } catch (error) {

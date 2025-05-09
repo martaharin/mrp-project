@@ -5,6 +5,7 @@ import { CreditCardOutlined } from '@ant-design/icons';
 
 export default function InvoiceDataTableModule({ config }) {
   const translate = useLanguage();
+
   return (
     <ErpLayout>
       <ErpPanel

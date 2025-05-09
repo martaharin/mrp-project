@@ -180,8 +180,8 @@ export default function DataTable({ config, extra = [] }) {
   return (
     <>
       <PageHeader
-        onBack={() => window.history.back()}
-        backIcon={<ArrowLeftOutlined />}
+        // onBack={() => window.history.back()}
+        // backIcon={<ArrowLeftOutlined />}
         title={DATATABLE_TITLE}
         ghost={false}
         extra={[

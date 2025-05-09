@@ -277,6 +277,7 @@ function Sidebar({ collapsible, isMobile = false }) {
       icon: <AppstoreOutlined />,
       label: <Link to={'/item'}>{translate('items')}</Link>,
     },
+
     {
       key: 'machine',
       icon: <ToolOutlined />,

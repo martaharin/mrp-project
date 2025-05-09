@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "680e1a1c3a690ed85d9ebf90",
+    "removed": false,
+    "enabled": true,
+    "name": "Sugar",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.708Z",
+    "updated": "2025-04-27T11:50:52.709Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf91",
+    "removed": false,
+    "enabled": true,
+    "name": "Glucose",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.710Z",
+    "updated": "2025-04-27T11:50:52.710Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf92",
+    "removed": false,
+    "enabled": true,
+    "name": "Vegetable Oil",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.710Z",
+    "updated": "2025-04-27T11:50:52.710Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf93",
+    "removed": false,
+    "enabled": true,
+    "name": "Wheat Flour",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.710Z",
+    "updated": "2025-04-27T11:50:52.710Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf94",
+    "removed": false,
+    "enabled": true,
+    "name": "Cocoa Powder",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.711Z",
+    "updated": "2025-04-27T11:50:52.711Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf95",
+    "removed": false,
+    "enabled": true,
+    "name": "Wheat Flour",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.711Z",
+    "updated": "2025-04-27T11:50:52.711Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf96",
+    "removed": false,
+    "enabled": true,
+    "name": "Milk Powder",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.711Z",
+    "updated": "2025-04-27T11:50:52.711Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf97",
+    "removed": false,
+    "enabled": true,
+    "name": "Non-Dairy Creamer",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.711Z",
+    "updated": "2025-04-27T11:50:52.711Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf98",
+    "removed": false,
+    "enabled": true,
+    "name": "Malt Extract",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.713Z",
+    "updated": "2025-04-27T11:50:52.713Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf99",
+    "removed": false,
+    "enabled": true,
+    "name": "Egg Powder",
+    "type": "raw material",
+    "created": "2025-04-27T11:50:52.714Z",
+    "updated": "2025-04-27T11:50:52.714Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf9a",
+    "removed": false,
+    "enabled": true,
+    "name": "Beng-Beng Bar",
+    "type": "finish good",
+    "created": "2025-04-27T11:50:52.715Z",
+    "updated": "2025-04-27T11:50:52.715Z",
+    "__v": 0
+  },
+  {
+    "_id": "680e1a1c3a690ed85d9ebf9b",
+    "removed": false,
+    "enabled": true,
+    "name": "Energen Sachet",
+    "type": "finish good",
+    "created": "2025-04-27T11:50:52.715Z",
+    "updated": "2025-04-27T11:50:52.715Z",
+    "__v": 0
+  }
+]

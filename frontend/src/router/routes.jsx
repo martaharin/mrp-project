@@ -1,6 +1,5 @@
 import ProtectedRoute from '@/components/ProtectedROute';
 import { lazy } from 'react';
-
 import { Navigate } from 'react-router-dom';
 
 const Logout = lazy(() => import('@/pages/Logout.jsx'));
@@ -14,38 +13,14 @@ const Machine = lazy(() => import('@/pages/Machine'));
 const Batch = lazy(() => import('@/pages/Batch'));
 const Invoice = lazy(() => import('@/pages/Invoice'));
 const InvoiceCreate = lazy(() => import('@/pages/Invoice/InvoiceCreate'));
-
 const InvoiceRead = lazy(() => import('@/pages/Invoice/InvoiceRead'));
 const InvoiceUpdate = lazy(() => import('@/pages/Invoice/InvoiceUpdate'));
 const InvoiceRecordPayment = lazy(() => import('@/pages/Invoice/InvoiceRecordPayment'));
+
 const Quote = lazy(() => import('@/pages/Quote/index'));
 const QuoteCreate = lazy(() => import('@/pages/Quote/QuoteCreate'));
 const QuoteRead = lazy(() => import('@/pages/Quote/QuoteRead'));
 const QuoteUpdate = lazy(() => import('@/pages/Quote/QuoteUpdate'));
-const BillOfMaterial = lazy(() => import('@/pages/BillOfMaterial/index'));
-const BillOfMaterialCreate = lazy(() => import('@/pages/BillOfMaterial/BillOfMaterialCreate'));
-const BillOfMaterialRead = lazy(() => import('@/pages/BillOfMaterial/BillOfMaterialRead'));
-const BillOfMaterialUpdate = lazy(() => import('@/pages/BillOfMaterial/BillOfMaterialUpdate'));
-const MaterialRequirement = lazy(() => import('@/pages/MaterialRequirement/index'));
-const MaterialRequirementCreate = lazy(
-  () => import('@/pages/MaterialRequirement/MaterialRequirementCreate')
-);
-const MaterialRequirementRead = lazy(
-  () => import('@/pages/MaterialRequirement/MaterialRequirementRead')
-);
-const MaterialRequirementUpdate = lazy(
-  () => import('@/pages/MaterialRequirement/MaterialRequirementUpdate')
-);
-const ProductionSchedule = lazy(() => import('@/pages/ProductionSchedule/index'));
-const ProductionScheduleCreate = lazy(
-  () => import('@/pages/ProductionSchedule/ProductionScheduleCreate')
-);
-const ProductionScheduleRead = lazy(
-  () => import('@/pages/ProductionSchedule/ProductionScheduleRead')
-);
-const ProductionScheduleUpdate = lazy(
-  () => import('@/pages/ProductionSchedule/ProductionScheduleUpdate')
-);
 const Payment = lazy(() => import('@/pages/Payment/index'));
 const PaymentRead = lazy(() => import('@/pages/Payment/PaymentRead'));
 const PaymentUpdate = lazy(() => import('@/pages/Payment/PaymentUpdate'));
@@ -53,9 +28,7 @@ const PaymentUpdate = lazy(() => import('@/pages/Payment/PaymentUpdate'));
 const Settings = lazy(() => import('@/pages/Settings/Settings'));
 const PaymentMode = lazy(() => import('@/pages/PaymentMode'));
 const Taxes = lazy(() => import('@/pages/Taxes'));
-
 const Profile = lazy(() => import('@/pages/Profile'));
-
 const About = lazy(() => import('@/pages/About'));
 
 let routes = {
@@ -78,13 +51,12 @@ let routes = {
       element: <Dashboard />,
     },
     {
-      path: '/customer',
-      element: <Customer />,
+      path: '/item',
+      element: <Item />,
     },
-
     {
-      path: '/invoice',
-      element: <Invoice />,
+      path: '/forecast',
+      element: <Forecast />,
     },
     {
       path: '/invoice/create',

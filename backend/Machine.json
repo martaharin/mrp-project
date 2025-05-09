@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "680e22356a596f802cee62a4",
+    "removed": false,
+    "enabled": true,
+    "name": "Machine 1",
+    "capacity": 100,
+    "item": "680e1a1c3a690ed85d9ebf9a",
+    "created": "2025-04-27T12:25:25.171Z",
+    "updated": "2025-04-27T12:25:25.171Z",
+    "__v": 0,
+    "items": []
+  },
+  {
+    "_id": "680e22356a596f802cee62a5",
+    "removed": false,
+    "enabled": true,
+    "name": "Machine 2",
+    "capacity": 200,
+    "item": "680e1a1c3a690ed85d9ebf9b",
+    "created": "2025-04-27T12:25:25.171Z",
+    "updated": "2025-04-27T12:25:25.171Z",
+    "__v": 0,
+    "items": []
+  }
+]
