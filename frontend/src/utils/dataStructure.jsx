@@ -195,6 +195,12 @@ export function dataForTable({ fields, translate, moneyFormatter, dateFormat }) 
 
     const type = field.type;
 
+    if (field.type == 'search') {
+      defaultComponent.dataIndex.push('name');
+      // Object.keys(component).includes(type)
+      //   ? columns.push(component[type])
+      //   : columns.push(defaultComponent);
+    }
     if (!field.disableForTable) {
       Object.keys(component).includes(type)
         ? columns.push(component[type])

@@ -53,21 +53,21 @@ export default function DataTable({ config, extra = [] }) {
   const { modal } = erpContextAction;
 
   const items = [
+    // {
+    //   label: translate('Show'),
+    //   key: 'read',
+    //   icon: <EyeOutlined />,
+    // },
     {
-      label: translate('Show'),
-      key: 'read',
+      label: translate('View'),
+      key: 'edit',
       icon: <EyeOutlined />,
     },
-    {
-      label: translate('Edit'),
-      key: 'edit',
-      icon: <EditOutlined />,
-    },
-    {
-      label: translate('Download'),
-      key: 'download',
-      icon: <FilePdfOutlined />,
-    },
+    // {
+    //   label: translate('Download'),
+    //   key: 'download',
+    //   icon: <FilePdfOutlined />,
+    // },
     ...extra,
     {
       type: 'divider',

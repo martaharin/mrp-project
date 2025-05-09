@@ -48,15 +48,15 @@ export default function DataTable({ config, extra = [] }) {
   const { dateFormat } = useDate();
 
   const items = [
+    // {
+    //   label: translate('Show'),
+    //   key: 'read',
+    //   icon: <EyeOutlined />,
+    // },
     {
-      label: translate('Show'),
-      key: 'read',
-      icon: <EyeOutlined />,
-    },
-    {
-      label: translate('Edit'),
+      label: translate('View'),
       key: 'edit',
-      icon: <EditOutlined />,
+      icon: <EyeOutlined />,
     },
     ...extra,
     {
@@ -97,7 +97,9 @@ export default function DataTable({ config, extra = [] }) {
   }
 
   let dispatchColumns = [];
-  if (fields) {
+  if (dataTableColumns) {
+    dispatchColumns = [...dataTableColumns];
+  } else if (fields) {
     dispatchColumns = [...dataForTable({ fields, translate, moneyFormatter, dateFormat })];
   } else {
     dispatchColumns = [...dataTableColumns];
@@ -184,16 +186,15 @@ export default function DataTable({ config, extra = [] }) {
         ghost={false}
         extra={[
           <Input
-            key={`searchFilterDataTable}`}
+            key="searchFilterDataTable"
             onChange={filterTable}
             placeholder={translate('search')}
             allowClear
           />,
-          <Button onClick={handelDataTableLoad} key={`${uniqueId()}`} icon={<RedoOutlined />}>
+          <Button onClick={handelDataTableLoad} key={uniqueId()} icon={<RedoOutlined />}>
             {translate('Refresh')}
           </Button>,
-
-          <AddNewItem key={`${uniqueId()}`} config={config} />,
+          !config.isReadOnly ? <AddNewItem key={uniqueId()} config={config} /> : null,
         ]}
         style={{
           padding: '20px 0px',

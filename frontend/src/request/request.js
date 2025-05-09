@@ -71,7 +71,7 @@ const request = {
   update: async ({ entity, id, jsonData }) => {
     try {
       includeToken();
-      const response = await axios.patch(entity + '/update/' + id, jsonData);
+      const response = await axios.put(entity + '/update/' + id, jsonData);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
@@ -131,21 +131,64 @@ const request = {
     }
   },
 
+  // search: async ({ entity, options = {} }) => {
+  //   try {
+
+  //     includeToken();
+  //     let query = '?';
+  //     for (var key in options) {
+  //       query += key + '=' + options[key] + '&';
+  //     }
+  //     query = query.slice(0, -1);
+  //     console.log(options);
+  //     // headersInstance.cancelToken = source.token;
+  //     const response = await axios.get(
+  //       entity + '/search' + query + '&filter=' + JSON.stringify(options.filter)
+  //     );
+
+  //     successHandler(response, {
+  //       notifyOnSuccess: false,
+  //       notifyOnFailed: false,
+  //     });
+  //     return response.data;
+  //   } catch (error) {
+  //     return errorHandler(error);
+  //   }
+  // },
   search: async ({ entity, options = {} }) => {
     try {
       includeToken();
+
+      // Build query string safely
       let query = '?';
-      for (var key in options) {
-        query += key + '=' + options[key] + '&';
+      for (const key in options) {
+        if (key === 'filter') {
+          if (options[key] !== undefined && options[key] !== null) {
+            // Properly encode filter object only if it exists
+            query += `${key}=${encodeURIComponent(JSON.stringify(options[key]))}&`;
+          }
+        } else {
+          if (options[key] !== undefined && options[key] !== null) {
+            // Encode other values only if they exist
+            query += `${key}=${encodeURIComponent(options[key])}&`;
+          }
+        }
       }
-      query = query.slice(0, -1);
-      // headersInstance.cancelToken = source.token;
+
+      // Remove trailing '&' if present
+      if (query.endsWith('&')) {
+        query = query.slice(0, -1);
+      }
+
+      console.log('Query URL:', entity + '/search' + query);
+
       const response = await axios.get(entity + '/search' + query);
 
       successHandler(response, {
         notifyOnSuccess: false,
         notifyOnFailed: false,
       });
+
       return response.data;
     } catch (error) {
       return errorHandler(error);

@@ -9,7 +9,7 @@ import InvoiceDataTableModule from '@/modules/InvoiceModule/InvoiceDataTableModu
 export default function Invoice() {
   const translate = useLanguage();
   const { dateFormat } = useDate();
-  const entity = 'invoice';
+  const entity = 'productionSchedule';
   const { moneyFormatter } = useMoney();
 
   const searchConfig = {
@@ -82,10 +82,10 @@ export default function Invoice() {
   ];
 
   const Labels = {
-    PANEL_TITLE: translate('invoice'),
-    DATATABLE_TITLE: translate('invoice_list'),
-    ADD_NEW_ENTITY: translate('add_new_invoice'),
-    ENTITY_NAME: translate('invoice'),
+    PANEL_TITLE: translate('productionSchedule'),
+    DATATABLE_TITLE: translate('productionSchedule_list'),
+    ADD_NEW_ENTITY: translate('add_new_productionSchedule'),
+    ENTITY_NAME: translate('productionSchedule'),
 
     RECORD_ENTITY: translate('record_payment'),
   };

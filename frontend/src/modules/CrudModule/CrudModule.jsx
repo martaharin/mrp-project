@@ -53,26 +53,28 @@ function SidePanelTopContent({ config, formElements, withUpload }) {
         <Col span={10}>
           <p style={{ marginBottom: '10px' }}>{labels}</p>
         </Col>
-        <Col span={14}>
-          <Button
-            onClick={removeItem}
-            type="text"
-            icon={<DeleteOutlined />}
-            size="small"
-            style={{ float: 'right', marginLeft: '5px', marginTop: '10px' }}
-          >
-            {translate('remove')}
-          </Button>
-          <Button
-            onClick={editItem}
-            type="text"
-            icon={<EditOutlined />}
-            size="small"
-            style={{ float: 'right', marginLeft: '0px', marginTop: '10px' }}
-          >
-            {translate('edit')}
-          </Button>
-        </Col>
+        {!config.isReadOnly && (
+          <Col span={14}>
+            <Button
+              onClick={removeItem}
+              type="text"
+              icon={<DeleteOutlined />}
+              size="small"
+              style={{ float: 'right', marginLeft: '5px', marginTop: '10px' }}
+            >
+              {translate('remove')}
+            </Button>
+            <Button
+              onClick={editItem}
+              type="text"
+              icon={<EditOutlined />}
+              size="small"
+              style={{ float: 'right', marginLeft: '0px', marginTop: '10px' }}
+            >
+              {translate('edit')}
+            </Button>
+          </Col>
+        )}
 
         <Col span={24}>
           <div className="line"></div>
@@ -85,7 +87,7 @@ function SidePanelTopContent({ config, formElements, withUpload }) {
   );
 }
 
-function FixHeaderPanel({ config }) {
+function FixHeaderPanel({ config, isReadOnly }) {
   const { crudContextAction } = useCrudContext();
 
   const { collapsedBox } = crudContextAction;
@@ -100,26 +102,36 @@ function FixHeaderPanel({ config }) {
         <SearchItem config={config} />
       </Col>
       <Col className="gutter-row" span={3}>
-        <Button onClick={addNewItem} block={true} icon={<PlusOutlined />}></Button>
+        <Button
+          onClick={addNewItem}
+          block={true}
+          icon={<PlusOutlined />}
+          disabled={isReadOnly}
+        ></Button>
       </Col>
     </Row>
   );
 }
 
-function CrudModule({ config, createForm, updateForm, withUpload = false }) {
+function CrudModule({ config, createForm, updateForm, withUpload = false, allowedRoles = [] }) {
   const dispatch = useDispatch();
+  const userRole = JSON.parse(window.localStorage.getItem('auth')).current.role;
+  const isReadOnly = allowedRoles.length === 0 ? false : !allowedRoles.includes(userRole);
+  config.isReadOnly = isReadOnly;
 
   useLayoutEffect(() => {
     dispatch(crud.resetState());
   }, []);
+  console.log(isReadOnly);
 
+  if (!userRole) return;
   return (
     <CrudLayout
       config={config}
-      fixHeaderPanel={<FixHeaderPanel config={config} />}
-      sidePanelBottomContent={
-        <CreateForm config={config} formElements={createForm} withUpload={withUpload} />
-      }
+      // fixHeaderPanel={<FixHeaderPanel config={config} />}
+      // sidePanelBottomContent={
+      //   <CreateForm config={config} formElements={createForm} withUpload={withUpload} />
+      // }
       sidePanelTopContent={
         <SidePanelTopContent config={config} formElements={updateForm} withUpload={withUpload} />
       }

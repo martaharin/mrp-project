@@ -41,16 +41,19 @@ export default function CollapseBox({
   buttonTitle,
   isCollapsed,
   onCollapse,
+  config,
 }) {
   const collapsed = isCollapsed ? 'collapsed' : '';
   return (
     <>
       <TopCollapseBox isOpen={isCollapsed}>{topContent}</TopCollapseBox>
-      <div className={'collapseBox ' + collapsed}>
-        <CollapseBoxButton title={buttonTitle} onChange={onCollapse} />
-        <div className="whiteBg"></div>
-        <BottomCollapseBox isOpen={isCollapsed}>{bottomContent}</BottomCollapseBox>
-      </div>
+      {!config.isReadOnly && (
+        <div className={'collapseBox ' + collapsed}>
+          <CollapseBoxButton title={buttonTitle} onChange={onCollapse} />
+          <div className="whiteBg"></div>
+          <BottomCollapseBox isOpen={isCollapsed}>{bottomContent}</BottomCollapseBox>
+        </div>
+      )}
     </>
   );
 }

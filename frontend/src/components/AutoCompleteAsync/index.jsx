@@ -10,6 +10,7 @@ import useLanguage from '@/locale/useLanguage';
 
 export default function AutoCompleteAsync({
   entity,
+  filter,
   displayLabels,
   searchFields,
   outputValue = '_id',
@@ -75,7 +76,9 @@ export default function AutoCompleteAsync({
     const options = {
       q: debouncedValue,
       fields: searchFields,
+      filter,
     };
+
     const callback = asyncSearch(options);
     onFetch(callback);
 
@@ -104,7 +107,7 @@ export default function AutoCompleteAsync({
   useEffect(() => {
     // this for update Form , it's for setField
     if (value && isUpdating.current) {
-      setOptions([value]);
+      // setOptions([value]);
       setCurrentValue(value[outputValue] || value); // set nested value or value
       onChange(value[outputValue] || value);
       isUpdating.current = false;

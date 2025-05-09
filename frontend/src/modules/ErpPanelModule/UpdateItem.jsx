@@ -33,7 +33,7 @@ function SaveForm({ form, translate }) {
 
 export default function UpdateItem({ config, UpdateForm }) {
   const translate = useLanguage();
-  let { entity } = config;
+  let { entity, title } = config;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -91,10 +91,9 @@ export default function UpdateItem({ config, UpdateForm }) {
       }
       if (fieldsValue.items) {
         let newList = [];
-        fieldsValue.items.map((item) => {
-          const { quantity, price, itemName, description } = item;
-          const total = item.quantity * item.price;
-          newList.push({ total, quantity, price, itemName, description });
+        fieldsValue.items.map((itemData) => {
+          const { quantity, item, itemName, description } = itemData;
+          newList.push({ quantity, item, itemName, description });
         });
         dataToUpdate.items = newList;
       }
@@ -102,12 +101,15 @@ export default function UpdateItem({ config, UpdateForm }) {
 
     dispatch(erp.update({ entity, id, jsonData: dataToUpdate }));
   };
+
   useEffect(() => {
     if (isSuccess) {
       form.resetFields();
       setSubTotal(0);
-      dispatch(erp.resetAction({ actionType: 'update' }));
-      navigate(`/${entity.toLowerCase()}/read/${id}`);
+      // console.log(current);
+
+      // dispatch(erp.resetAction({ actionType: 'update' }));
+      navigate(`/${entity.toLowerCase()}`);
     }
   }, [isSuccess]);
 
@@ -132,14 +134,13 @@ export default function UpdateItem({ config, UpdateForm }) {
       setSubTotal(subTotal);
     }
   }, [current]);
-
   return (
     <>
       <PageHeader
         onBack={() => {
           navigate(`/${entity.toLowerCase()}`);
         }}
-        title={translate('update')}
+        title={translate(config.name)}
         ghost={false}
         tags={[
           <span key="status">{currentErp.status && translate(currentErp.status)}</span>,

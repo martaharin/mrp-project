@@ -9,6 +9,8 @@ import { selectReadItem } from '@/redux/erp/selectors';
 import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import QuoteForm from '../Forms/QuoteForm';
+import UpdateItem from '@/modules/ErpPanelModule/UpdateItem';
 
 export default function ReadQuoteModule({ config }) {
   const dispatch = useDispatch();
@@ -30,7 +32,9 @@ export default function ReadQuoteModule({ config }) {
     return (
       <ErpLayout>
         {isSuccess ? (
-          <ReadItem config={config} selectedItem={currentResult} />
+          // <ReadItem config={config} selectedItem={currentResult} />
+          // <UpdateItem config={config} UpdateForm={QuoteForm} />
+          <></>
         ) : (
           <NotFound entity={config.entity} />
         )}

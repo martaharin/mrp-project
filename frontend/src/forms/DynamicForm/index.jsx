@@ -269,6 +269,7 @@ function FormElement({ field, feedback, setFeedback }) {
       >
         <AutoCompleteAsync
           entity={field.entity}
+          filter={field.filter}
           displayLabels={field.displayLabels}
           searchFields={field.searchFields}
           outputValue={field.outputValue}

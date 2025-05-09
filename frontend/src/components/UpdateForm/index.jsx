@@ -97,26 +97,26 @@ export default function UpdateForm({ config, formElements, withUpload = false })
   return (
     <div style={show}>
       <Loading isLoading={isLoading}>
-        <Form form={form} layout="vertical" onFinish={onSubmit}>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={onSubmit}
+          disabled={config.isReadOnly} // This disables all fields
+        >
           {formElements}
-          <Form.Item
-            style={{
-              display: 'inline-block',
-              paddingRight: '5px',
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              {translate('Save')}
-            </Button>
-          </Form.Item>
-          <Form.Item
-            style={{
-              display: 'inline-block',
-              paddingLeft: '5px',
-            }}
-          >
-            <Button onClick={showCurrentRecord}>{translate('Cancel')}</Button>
-          </Form.Item>
+
+          {!config.isReadOnly && (
+            <>
+              <Form.Item style={{ display: 'inline-block', paddingRight: '5px' }}>
+                <Button type="primary" htmlType="submit">
+                  {translate('Save')}
+                </Button>
+              </Form.Item>
+              <Form.Item style={{ display: 'inline-block', paddingLeft: '5px' }}>
+                <Button onClick={showCurrentRecord}>{translate('Cancel')}</Button>
+              </Form.Item>
+            </>
+          )}
         </Form>
       </Loading>
     </div>
