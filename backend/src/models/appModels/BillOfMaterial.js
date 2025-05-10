@@ -26,11 +26,13 @@ const bomSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  items: [itemDetailSchema], // Now an array of items with quantity
-  createdBy: {
+  item: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Admin',
+    ref: 'Item',
+    required: true,
+    autopopulate: true,
   },
+  items: [itemDetailSchema], // Now an array of items with quantity
   created: {
     type: Date,
     default: Date.now,

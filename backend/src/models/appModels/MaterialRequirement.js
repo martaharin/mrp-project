@@ -10,6 +10,10 @@ const invoiceSchema = new mongoose.Schema({
     required: true,
   },
 
+  name: {
+    type: String,
+    required: true,
+  },
   items: [
     {
       item: {
@@ -28,7 +32,7 @@ const invoiceSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ['draft', 'pending', 'sent', 'refunded', 'cancelled', 'on hold'],
+    enum: ['draft', 'submitted', 'completed', 'cancelled', 'on process'],
     default: 'draft',
   },
 

@@ -5,6 +5,7 @@ const readItem = require('./read'); // fungsi read
 const updateItem = require('./update'); // fungsi update
 const removeItem = require('./remove'); // fungsi remove
 const summary = require('./summary');
+const paginatedItemList = require('./paginatedList');
 
 const Item = mongoose.model('Item');
 
@@ -14,6 +15,7 @@ function modelController() {
 
   methods.create = createItem; // method read
   methods.read = readItem;
+  methods.list = paginatedItemList;
   methods.update = updateItem;
   methods.delete = removeItem;
   methods.summary = (req, res) => summary(Model, req, res);

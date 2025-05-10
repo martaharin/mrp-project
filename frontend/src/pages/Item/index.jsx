@@ -4,11 +4,7 @@ import { fields } from './config';
 
 import useLanguage from '@/locale/useLanguage';
 
-<<<<<<< HEAD
-export default function Customer() {
-=======
 export default function Item() {
->>>>>>> b5e4c5f8e5762a3322cc5781e7198531f0f0c105
   const translate = useLanguage();
   const entity = 'item';
   const searchConfig = {
@@ -38,10 +34,7 @@ export default function Item() {
       createForm={<DynamicForm fields={fields} />}
       updateForm={<DynamicForm fields={fields} />}
       config={config}
-<<<<<<< HEAD
       // allowedRoles={['owner', 'production']}
-=======
->>>>>>> b5e4c5f8e5762a3322cc5781e7198531f0f0c105
     />
   );
 }

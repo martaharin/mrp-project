@@ -14,8 +14,8 @@ const readBillOfMaterial = async (req, res) => {
     }
 
     const bom = id
-      ? await BillOfMaterial.findOne(query).populate('items.item createdBy')
-      : await BillOfMaterial.find(query).populate('items.item createdBy');
+      ? await BillOfMaterial.findOne(query).populate('item')
+      : await BillOfMaterial.find(query).populate('item');
 
     if (!bom && id) {
       return res.status(404).json({

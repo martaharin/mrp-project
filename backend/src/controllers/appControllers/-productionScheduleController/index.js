@@ -1,5 +1,5 @@
 const createCRUDController = require('@/controllers/middlewaresControllers/createCRUDController');
-const methods = createCRUDController('Batch');
+const methods = createCRUDController('ProductionSchedule');
 
 const sendMail = require('./sendMail');
 const create = require('./create');

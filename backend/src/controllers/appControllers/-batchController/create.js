@@ -3,14 +3,14 @@ const Batch = mongoose.model('Batch');
 
 const createBatch = async (req, res) => {
   try {
-    const { name, quantity, item, expired } = req.body;
+    const { name, quantity, item, createdBy, expired } = req.body;
 
     // Validasi input
-    if (!name || !quantity || !item || !expired) {
+    if (!name || !quantity || !item || !createdBy || !expired) {
       return res.status(400).json({
         success: false,
         result: null,
-        message: 'Missing required fields (name, quantity, item, expired)',
+        message: 'Missing required fields (name, quantity, item, createdBy, expired)',
       });
     }
 
@@ -29,6 +29,7 @@ const createBatch = async (req, res) => {
       name,
       quantity,
       item,
+      createdBy,
       expired,
     });
 

@@ -5,11 +5,15 @@ const invoiceSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-
+  name: {
+    type: String,
+    required: true,
+  },
   startDate: {
     type: Date,
     required: true,
   },
+
   endDate: {
     type: Date,
     required: true,
@@ -27,14 +31,14 @@ const invoiceSchema = new mongoose.Schema({
     autopopulate: true,
   },
 
-  qty: {
+  quantity: {
     type: Number,
     default: 0,
   },
 
   status: {
     type: String,
-    enum: ['draft', 'scheduled', 'finished', 'cancelled', 'on process'],
+    enum: ['draft', 'submitted', 'completed', 'cancelled', 'on process'],
     default: 'draft',
   },
 

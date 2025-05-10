@@ -30,7 +30,7 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  expired: { 
+  expired: {
     type: Date,
     required: true,
   },

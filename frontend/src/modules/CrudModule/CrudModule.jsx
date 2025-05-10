@@ -53,7 +53,8 @@ function SidePanelTopContent({ config, formElements, withUpload }) {
         <Col span={10}>
           <p style={{ marginBottom: '10px' }}>{labels}</p>
         </Col>
-        {!config.isReadOnly && (
+        {true && (
+          // {!config.isReadOnly && (
           <Col span={14}>
             <Button
               onClick={removeItem}
@@ -129,9 +130,9 @@ function CrudModule({ config, createForm, updateForm, withUpload = false, allowe
     <CrudLayout
       config={config}
       // fixHeaderPanel={<FixHeaderPanel config={config} />}
-      // sidePanelBottomContent={
-      //   <CreateForm config={config} formElements={createForm} withUpload={withUpload} />
-      // }
+      sidePanelBottomContent={
+        <CreateForm config={config} formElements={createForm} withUpload={withUpload} />
+      }
       sidePanelTopContent={
         <SidePanelTopContent config={config} formElements={updateForm} withUpload={withUpload} />
       }

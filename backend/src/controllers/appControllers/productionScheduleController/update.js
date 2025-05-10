@@ -1,83 +1,178 @@
+// const mongoose = require('mongoose');
+
+// const Model = mongoose.model('ProductionSchedule');
+
+// const custom = require('@/controllers/pdfController');
+
+// const { calculate } = require('@/helpers');
+// const schema = require('./schemaValidate');
+
+// const update = async (req, res) => {
+//   let body = req.body;
+
+//   const result = await Model.findOneAndUpdate({ _id: req.params.id, removed: false }, body, {
+//     new: true, // return the new result instead of the old one
+//   }).exec();
+
+//   // Returning successfull response
+
+//   return res.status(200).json({
+//     success: true,
+//     result,
+//     message: 'we update this document ',
+//   });
+// };
+
+// module.exports = update;
+
+const Counter = require('@/models/appModels/Counter');
 const mongoose = require('mongoose');
-
 const Model = mongoose.model('ProductionSchedule');
-
-const custom = require('@/controllers/pdfController');
-
-const { calculate } = require('@/helpers');
-const schema = require('./schemaValidate');
+const BillOfMaterial = mongoose.model('BillOfMaterial');
+const Batch = mongoose.model('Batch');
+const MaterialRequirement = mongoose.model('MaterialRequirement');
 
 const update = async (req, res) => {
-  let body = req.body;
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-  const { error, value } = schema.validate(body);
-  if (error) {
-    const { details } = error;
-    return res.status(400).json({
+  try {
+    const { status, ...rest } = req.body;
+    const id = req.params.id;
+
+    // Get current schedule
+    const existing = await Model.findById(id).session(session);
+    if (!existing) {
+      await session.abortTransaction();
+      return res.status(404).json({ success: false, message: 'ProductionSchedule not found' });
+    }
+
+    // If changing status to 'submitted', run FEFO + MR logic
+    if (status === 'submitted' && existing.status !== 'submitted') {
+      const bomDoc = await BillOfMaterial.findById(existing.bom).session(session);
+      if (!bomDoc) {
+        await session.abortTransaction();
+        return res.status(400).json({ success: false, message: 'BOM not found' });
+      }
+
+      const quantity = existing.quantity;
+      const shortfalls = [];
+
+      // Inventory checking
+      for (const detail of bomDoc.items) {
+        const totalNeeded = detail.quantity * quantity;
+        let available = 0;
+
+        const batches = await Batch.find({
+          item: detail.item._id,
+          removed: false,
+          enabled: true,
+          quantity: { $gt: 0 },
+          expired: { $gt: new Date() },
+        })
+          .sort({ expired: 1 })
+          .session(session);
+
+        for (const batch of batches) {
+          available += batch.quantity;
+          if (available >= totalNeeded) break;
+        }
+
+        if (available < totalNeeded) {
+          shortfalls.push({
+            item: detail.item._id,
+            quantity: totalNeeded - available,
+          });
+        }
+      }
+
+      if (shortfalls.length > 0) {
+        const now = new Date();
+        const year = now.getFullYear().toString().slice(-2); // e.g., "25"
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // "05"
+        const prefix = `MR${year}/${month}`;
+
+        // Find or create the counter
+        const counter = await Counter.findOneAndUpdate(
+          { _id: prefix },
+          { $inc: { seq: 1 }, $setOnInsert: { created: now } },
+          { new: true, upsert: true }
+        );
+
+        const paddedSeq = String(counter.seq).padStart(4, '0'); //
+        const mrName = `${prefix}/${paddedSeq}`;
+
+        const materialRequirement = new MaterialRequirement({
+          requestedDate: now,
+          name: mrName,
+          items: shortfalls,
+          status: 'draft',
+        });
+
+        await materialRequirement.save({ session });
+        await session.commitTransaction();
+        session.endSession();
+
+        return res.status(400).json({
+          success: false,
+          result: materialRequirement,
+          message:
+            'Inventory insufficient. Material Requirement ' +
+            materialRequirement.name +
+            ' created instead.',
+        });
+      }
+
+      // Deduct from batch (FEFO)
+      for (const detail of bomDoc.items) {
+        const totalNeeded = detail.quantity * quantity;
+        let remaining = totalNeeded;
+
+        const batches = await Batch.find({
+          item: detail.item._id,
+          removed: false,
+          enabled: true,
+          quantity: { $gt: 0 },
+          expired: { $gt: new Date() },
+        })
+          .sort({ expired: 1 })
+          .session(session);
+
+        for (const batch of batches) {
+          if (remaining <= 0) break;
+
+          const deductQty = Math.min(batch.quantity, remaining);
+          batch.quantity -= deductQty;
+          remaining -= deductQty;
+          await batch.save({ session });
+        }
+      }
+    }
+
+    // Update schedule with new values
+    const result = await Model.findOneAndUpdate(
+      { _id: id, removed: false },
+      { ...rest, ...(status ? { status } : {}) },
+      { new: true, session }
+    );
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return res.status(200).json({
+      success: true,
+      result,
+      message: 'Production Schedule updated successfully',
+    });
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    console.error('Error updating Production Schedule:', error);
+    return res.status(500).json({
       success: false,
-      result: null,
-      message: details[0]?.message,
+      message: 'Failed to update Production Schedule',
     });
   }
-
-  const previousInvoice = await Model.findOne({
-    _id: req.params.id,
-    removed: false,
-  });
-
-  const { credit } = previousInvoice;
-
-  const { items = [], taxRate = 0, discount = 0 } = req.body;
-
-  if (items.length === 0) {
-    return res.status(400).json({
-      success: false,
-      result: null,
-      message: 'Items cannot be empty',
-    });
-  }
-
-  // default
-  let subTotal = 0;
-  let taxTotal = 0;
-  let total = 0;
-
-  //Calculate the items array with subTotal, total, taxTotal
-  items.map((item) => {
-    let total = calculate.multiply(item['quantity'], item['price']);
-    //sub total
-    subTotal = calculate.add(subTotal, total);
-    //item total
-    item['total'] = total;
-  });
-  taxTotal = calculate.multiply(subTotal, taxRate / 100);
-  total = calculate.add(subTotal, taxTotal);
-
-  body['subTotal'] = subTotal;
-  body['taxTotal'] = taxTotal;
-  body['total'] = total;
-  body['items'] = items;
-  body['pdf'] = 'invoice-' + req.params.id + '.pdf';
-  if (body.hasOwnProperty('currency')) {
-    delete body.currency;
-  }
-  // Find document by id and updates with the required fields
-
-  let paymentStatus =
-    calculate.sub(total, discount) === credit ? 'paid' : credit > 0 ? 'partially' : 'unpaid';
-  body['paymentStatus'] = paymentStatus;
-
-  const result = await Model.findOneAndUpdate({ _id: req.params.id, removed: false }, body, {
-    new: true, // return the new result instead of the old one
-  }).exec();
-
-  // Returning successfull response
-
-  return res.status(200).json({
-    success: true,
-    result,
-    message: 'we update this document ',
-  });
 };
 
 module.exports = update;

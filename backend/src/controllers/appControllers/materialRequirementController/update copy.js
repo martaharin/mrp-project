@@ -62,6 +62,16 @@ const update = async (req, res) => {
 
   try {
     let body = req.body;
+    const { error, value } = schema.validate(body);
+
+    if (error) {
+      const { details } = error;
+      return res.status(400).json({
+        success: false,
+        result: null,
+        message: details[0]?.message,
+      });
+    }
 
     const { items = [], status } = req.body;
 
@@ -73,32 +83,33 @@ const update = async (req, res) => {
       });
     }
 
-    const existing = await Model.findById(req.params.id).session(session);
-    if (!existing) {
-      await session.abortTransaction();
-      return res.status(404).json({ success: false, message: 'MaterialRequirement not found' });
-    }
+    // Fetch the existing MR
+    // const existing = await Model.findById(req.params.id).session(session);
+    // if (!existing) {
+    //   await session.abortTransaction();
+    //   return res.status(404).json({ success: false, message: 'MaterialRequirement not found' });
+    // }
 
-    // If status is being updated to "completed"
-    if (status === 'completed' && existing.status !== 'completed') {
-      for (const detail of items) {
-        const { item, quantity } = detail;
+    // // If status is being updated to "completed"
+    // if (status === 'completed' && existing.status !== 'completed') {
+    //   for (const detail of items) {
+    //     const { item, quantity } = detail;
 
-        // Create a new batch for each item
-        const batchName = uniqueId();
-        const expiredDate = new Date();
-        expiredDate.setMonth(expiredDate.getMonth() + 6); // Default expiry: 6 months
+    //     // Create a new batch for each item
+    //     const batchName = uniqueId();
+    //     const expiredDate = new Date();
+    //     expiredDate.setMonth(expiredDate.getMonth() + 6); // Default expiry: 6 months
 
-        const newBatch = new Batch({
-          name: batchName,
-          item,
-          quantity,
-          expired: expiredDate,
-        });
+    //     const newBatch = new Batch({
+    //       name: batchName,
+    //       item,
+    //       quantity,
+    //       expired: expiredDate,
+    //     });
 
-        await newBatch.save({ session });
-      }
-    }
+    //     await newBatch.save({ session });
+    //   }
+    // }
 
     // Perform the update
     const result = await Model.findOneAndUpdate({ _id: req.params.id, removed: false }, body, {

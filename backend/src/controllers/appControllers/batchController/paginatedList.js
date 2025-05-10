@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Model = mongoose.model('ProductionSchedule');
+const Model = mongoose.model('Batch');
 
 const paginatedList = async (req, res) => {
   const page = req.query.page || 1;
@@ -29,7 +29,7 @@ const paginatedList = async (req, res) => {
     .skip(skip)
     .limit(limit)
     .sort({ [sortBy]: sortValue })
-    .populate('bom', 'machine')
+    // .populate('bom', 'machine')
 
     .exec();
 

@@ -101,7 +101,7 @@ export default function UpdateForm({ config, formElements, withUpload = false })
           form={form}
           layout="vertical"
           onFinish={onSubmit}
-          disabled={config.isReadOnly} // This disables all fields
+          // disabled={config.isReadOnly} // This disables all fields
         >
           {formElements}
 
